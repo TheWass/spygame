@@ -1,6 +1,9 @@
 # Autosave files
 *~
 
+#library files
+wwwroot/lib/
+
 # build
 [Oo]bj/
 [Bb]in/
