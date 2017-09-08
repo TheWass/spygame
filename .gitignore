@@ -2,7 +2,7 @@
 *~
 
 #library files
-wwwroot/lib/
+spygame/wwwroot/lib/
 
 # build
 [Oo]bj/
