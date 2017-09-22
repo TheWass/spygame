@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using spygame.Hubs;
 
 namespace spygame
 {
@@ -22,6 +23,16 @@ namespace spygame
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddSignalR();
+
+            services.AddCors(o => o.AddPolicy("AllowAny", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +48,13 @@ namespace spygame
             }
 
             app.UseStaticFiles();
+
+            app.UseCors("AllowAny");
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<GameHub>("gamehub");
+            });
 
             app.UseMvc(routes =>
             {
