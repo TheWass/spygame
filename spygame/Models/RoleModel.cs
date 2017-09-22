@@ -9,5 +9,15 @@ namespace spygame.Models
         public Teams Team;
         public string playerName;
         public List<RoleModel> otherPlayerRoleInfo;
+
+
+    }
+
+    public class RoleRepository
+    {
+        public RoleModel GetRole(string playerName)
+        {
+            return new RoleModel();
+        }
     }
 }
