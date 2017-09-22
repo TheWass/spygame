@@ -2,7 +2,8 @@
 *~
 
 #library files
-spygame/wwwroot/lib/
+spygame/wwwroot/lib/*
+**/node_modules/
 
 # build
 [Oo]bj/
