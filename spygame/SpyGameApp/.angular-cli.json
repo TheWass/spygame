@@ -7,11 +7,11 @@
     {
       "root": "src",
       "outDir": "dist",
-      "deployUrl":  "SpyGameApp/",
       "assets": [
         "assets",
         "favicon.ico"
       ],
+      "deployUrl": "SpyGameApp/",
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
@@ -52,7 +52,11 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
-    "component": {}
+    "styleExt": "scss",
+    "component": {
+    }
+    "build": {
+      "baseHref": "SpyGameApp/",
+    }
   }
 }
