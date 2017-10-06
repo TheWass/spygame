@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using spygame.Hubs;
 
 namespace spygame
@@ -48,6 +51,12 @@ namespace spygame
             }
 
             app.UseStaticFiles();
+			app.UseFileServer(new FileServerOptions()
+			{
+				FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"SpyGameApp/dist")),
+				RequestPath = new PathString("/SpyGameApp"),
+				EnableDirectoryBrowsing = false
+			});
 
             app.UseCors("AllowAny");
 
