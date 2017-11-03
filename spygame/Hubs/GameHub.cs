@@ -7,26 +7,36 @@ namespace spygame.Hubs
 {
     public class GameHub : Hub
     {
+        Handlers.UserHandler userHandler = new Handlers.UserHandler();
+
         public override Task OnConnectedAsync()
         {
-            Handlers.UserHandler.ConnectedPlayers.Add(Context.ConnectionId, "");
+            userHandler.ConnectedPlayers.Add(Context.ConnectionId, "");
             return base.OnConnectedAsync();
         }
 
         public override Task OnDisconnectedAsync(Exception exception)
         {
-            Handlers.UserHandler.ConnectedPlayers.Remove(Context.ConnectionId);
+            userHandler.ConnectedPlayers.Remove(Context.ConnectionId);
             return base.OnDisconnectedAsync(exception);
         }
 
         public Task AddPlayer(string playerName)
         {
-            Handlers.UserHandler.ConnectedPlayers[Context.ConnectionId] = playerName;
-            return Clients.All.InvokeAsync("DisplayPlayers", JsonConvert.SerializeObject(Handlers.UserHandler.ConnectedPlayers, Formatting.Indented));
+            userHandler.ConnectedPlayers[Context.ConnectionId] = playerName;
+            return Clients.All.InvokeAsync("DisplayPlayers", JsonConvert.SerializeObject(userHandler.ConnectedPlayers, Formatting.None));
         }
 
-        //public Task Start()
+        public Task FetchVIP()
+        {
+            return Clients.All.InvokeAsync("DisplayVIP", JsonConvert.SerializeObject(userHandler.GetVIP(), Formatting.None));
+        }
+
+        //public Task FetchRoomCode(string connectionId)
         //{
+        //    return Clients.Client(connectionId).InvokeAsync("DisplayRoomCode", JsonConvert.SerializeObject(this.Context.Connection.);
+
         //}
+
     }
 }
